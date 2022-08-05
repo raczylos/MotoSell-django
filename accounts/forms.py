@@ -11,8 +11,11 @@ class RegisterForm(forms.ModelForm):
 
         fields = ('first_name', 'last_name', 'email', 'username', 'password')
         widgets = {
-            "password": PasswordInput(
-                attrs={'autocomplete': 'off', 'data-toggle': 'password'}),
+            "first_name": forms.TextInput(attrs={'class': 'form-control'}),
+            "last_name": forms.TextInput(attrs={'class': 'form-control'}),
+            "email": forms.EmailInput(attrs={'class': 'form-control'}),
+            "username": forms.TextInput(attrs={'class': 'form-control'}),
+            "password": forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'off', 'data-toggle': 'password'}),
         }
 
     def save(self, commit=True):
@@ -29,6 +32,6 @@ class LoginForm(forms.ModelForm):
 
         fields = ('username', 'password')
         widgets = {
-            "password": PasswordInput(
-                attrs={'autocomplete': 'off', 'data-toggle': 'password'}),
+            "username": forms.TextInput(attrs={'class': 'form-control'}),
+            "password": PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'off', 'data-toggle': 'password'}),
         }

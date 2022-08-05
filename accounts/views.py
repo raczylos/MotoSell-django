@@ -1,7 +1,17 @@
 from django.shortcuts import render, redirect
+from django.views.generic import CreateView
+from django.contrib.auth.models import User
+
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+
+
+# class RegisterView(CreateView):
+#     model = User
+#     form_class = RegisterForm
+#     template_name = 'registration/register_form.html'
+#     # fields = '__all__'
 
 
 def register_user(request):
@@ -43,7 +53,7 @@ def login_user(request):
         else:
             messages.success(request, "invalid username/password")
             print('invalid username/password')
-            return redirect('/login_user')
+            return redirect('/accounts/login')
 
     login_form = LoginForm()
     return render(request, 'registration/login.html', {'login_form': login_form})
