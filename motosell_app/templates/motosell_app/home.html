@@ -4,7 +4,11 @@
 
     <h1>home page</h1>
     <p>
+        {% if user.is_authenticated %}
         logged in user: {{ user.get_username }}
+        {% else %}
+        {% endif %}
+
     </p>
 
 {% endblock %}

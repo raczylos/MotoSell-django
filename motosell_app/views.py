@@ -6,4 +6,10 @@ from django.contrib import messages
 
 def home(request):
 
+    if request.user.is_authenticated:
+        pass
+    else:
+        pass
+
+
     return render(request, 'motosell_app/home.html')
