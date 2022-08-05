@@ -3,7 +3,7 @@ from django.views.generic import CreateView
 from django.contrib.auth.models import User
 
 from .forms import RegisterForm, LoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 
@@ -57,3 +57,14 @@ def login_user(request):
 
     login_form = LoginForm()
     return render(request, 'registration/login.html', {'login_form': login_form})
+
+def logout_user(request):
+    # if request.user.is_authenticated:
+    logout(request)
+
+    return redirect('/')
+    # if request.method == 'POST':
+    #     logout(request)
+    #
+    # login_form = LoginForm()
+    # return render(request, 'registration/login.html', {'login_form': login_form})
