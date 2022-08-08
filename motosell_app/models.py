@@ -5,15 +5,15 @@ class CarOffer(models.Model):
     title = models.CharField(max_length=80)
     description = models.CharField(max_length=400)
 
-    MOTOCYKL = "MOTOCYKL"
-    OSOBOWY = "OSOBOWY"
-    CIEZAROWY = "CIEZAROWY"
-    CAR_CATEGORIES = [
-        (MOTOCYKL, 'motocykl'),
-        (OSOBOWY, 'osobowy'),
-        (CIEZAROWY, 'ciezarowy'),
+    MOTORCYCLE = "MOTORCYCLE"
+    CAR = "CAR"
+    TRUCK = "TRUCK"
+    car_categories = [
+        (MOTORCYCLE, 'motorcycle'),
+        (CAR, 'car'),
+        (TRUCK, 'truck'),
     ]
-    car_category = models.CharField(max_length=16, choices=CAR_CATEGORIES)
+    car_category = models.CharField(max_length=16, choices=car_categories)
 
     brand = models.CharField(max_length=15)
     model = models.CharField(max_length=30)
@@ -22,15 +22,15 @@ class CarOffer(models.Model):
     cubic_capacity = models.IntegerField()
     power = models.IntegerField()
 
-    BENZYNA = "BENZYNA"
+    PETROL = "PETROL"
     DIESEL = "DIESEL"
     LPG = "LPG"
-    FUEL_CATEGORIES = [
-        (BENZYNA, 'benzyna'),
+    fuel_categories = [
+        (PETROL, 'petrol'),
         (DIESEL, 'diesel'),
         (LPG, 'lpg'),
     ]
-    fuel_category = models.CharField(max_length=16, choices=FUEL_CATEGORIES)
+    fuel_category = models.CharField(max_length=16, choices=fuel_categories)
 
     #user
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -39,8 +39,8 @@ class CarOffer(models.Model):
     image = models.ImageField(upload_to='files/images')
     #TODO gallery
 
-    pub_date = models.DateField()
-    add_date = models.DateField(default=None)
+    pub_date = models.DateField(default=None, null=True)
+    add_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.title

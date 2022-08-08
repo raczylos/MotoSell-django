@@ -1,0 +1,12 @@
+{% extends 'motosell_app/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="form-group">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{create_offer_form|crispy}}
+        <button type="submit" class="btn btn-primary"> Create offer </button>
+    </form>
+</div>
+{% endblock %}

@@ -3,12 +3,19 @@
 {% block content %}
 
     <h1>home page</h1>
+    {% if user.is_authenticated %}
     <p>
-        {% if user.is_authenticated %}
+
         logged in user: {{ user.get_username }}
-        {% else %}
-        {% endif %}
+
 
     </p>
+    <p>
+        My offers:
+        {% for offer in offer_list %}
+            <li>{{ offer }}</li>
+        {% endfor %}
+    </p>
+    {% endif %}
 
 {% endblock %}

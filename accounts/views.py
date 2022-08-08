@@ -49,7 +49,6 @@ def login_user(request):
             login(request, user)
             print('logged in')
             return redirect('/')
-
         else:
             messages.success(request, "invalid username/password")
             print('invalid username/password')
