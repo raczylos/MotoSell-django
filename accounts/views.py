@@ -1,69 +1,59 @@
+import jwt
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView
 from django.contrib.auth.models import User
+from rest_framework import status, viewsets
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication, BasicAuthentication, \
+    get_authorization_header
+from rest_framework_simplejwt.exceptions import AuthenticationFailed
 
+from MotoSell import settings
 from .forms import RegisterForm, LoginForm
+from rest_framework.decorators import action
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
-# class RegisterView(CreateView):
-#     model = User
-#     form_class = RegisterForm
-#     template_name = 'registration/register_form.html'
-#     # fields = '__all__'
+from .serializers import UserSerializer, LoginSerializer
 
 
-def register_user(request):
-    if request.method == 'POST':
-        register_form = RegisterForm(request.POST)
-        if register_form.is_valid():
-            user = register_form.save()
+class UserViewSet(viewsets.ModelViewSet):
 
-            login(request, user)
-
-            first_name = register_form.cleaned_data['first_name']
-            last_name = register_form.cleaned_data['last_name']
-            email = register_form.cleaned_data['email']
-            username = register_form.cleaned_data['username']
-            password = register_form.cleaned_data['password']
-
-            print(first_name, last_name, email, username, password)
-            return redirect('/')
-
-    register_form = RegisterForm()
-
-    return render(request, 'registration/register_form.html', {'register_form': register_form})
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
 
 
-def login_user(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        print(username)
-        print(password)
+class RegistrationViewSet(viewsets.ModelViewSet):
 
-        user = authenticate(request, username=username, password=password)
-        print(user)
-        if user is not None:
-            login(request, user)
-            print('logged in')
-            return redirect('/')
-        else:
-            messages.success(request, "invalid username/password")
-            print('invalid username/password')
-            return redirect('/accounts/login')
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
 
-    login_form = LoginForm()
-    return render(request, 'registration/login.html', {'login_form': login_form})
+    # def create(self, request):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response(serializer.data)
 
-def logout_user(request):
-    # if request.user.is_authenticated:
-    logout(request)
 
-    return redirect('/')
-    # if request.method == 'POST':
-    #     logout(request)
-    #
-    # login_form = LoginForm()
-    # return render(request, 'registration/login.html', {'login_form': login_form})
+class LoginViewSet(viewsets.ModelViewSet):
+
+    serializer_class = LoginSerializer
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+
+    def create(self, request):
+        queryset = User.objects.all()
+        auth = get_authorization_header(request).split()
+
+        if auth and len(auth) == 2:
+            token = auth[1].decode('utf-8')
+            decoded_token = jwt.decode(jwt=token, key=settings.SECRET_KEY, algorithms=['HS256'])
+            user_id = decoded_token.get("user_id")
+            return Response({'user_id': user_id})
+
+        raise AuthenticationFailed('unauthorized')
+
+

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+
 class CarOffer(models.Model):
     title = models.CharField(max_length=80)
     description = models.CharField(max_length=400)
@@ -9,9 +10,9 @@ class CarOffer(models.Model):
     CAR = "CAR"
     TRUCK = "TRUCK"
     car_categories = [
-        (MOTORCYCLE, 'motorcycle'),
-        (CAR, 'car'),
-        (TRUCK, 'truck'),
+        (MOTORCYCLE, 'motocykl'),
+        (CAR, 'osobowy'),
+        (TRUCK, 'ciężarowy'),
     ]
     car_category = models.CharField(max_length=16, choices=car_categories)
 
@@ -26,7 +27,7 @@ class CarOffer(models.Model):
     DIESEL = "DIESEL"
     LPG = "LPG"
     fuel_categories = [
-        (PETROL, 'petrol'),
+        (PETROL, 'benzyna'),
         (DIESEL, 'diesel'),
         (LPG, 'lpg'),
     ]

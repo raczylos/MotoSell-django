@@ -1,0 +1,46 @@
+<div mat-dialog-content class="add-user">
+    <h1>Rejestracja</h1>
+    <form [formGroup]="addUserForm">
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Imię</mat-label>
+                <input matInput formControlName="first_name" />
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Nazwisko</mat-label>
+                <input matInput formControlName="last_name" />
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" />
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Nazwa użytkownika</mat-label>
+                <input matInput formControlName="username" required/>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Hasło</mat-label>
+                <input matInput type="password" formControlName="password" required/>
+            </mat-form-field>
+        </div>
+
+
+<!--        <button mat-raised-button color="primary">Submit</button>-->
+
+        <div mat-dialog-actions >
+            <button mat-button (click)="onNoClick()">Wstecz</button>
+            <button mat-button (click)="onSubmit()" cdkFocusInitial>Zatwierdź</button>
+        </div>
+
+    </form>
+</div>
+
+

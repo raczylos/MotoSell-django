@@ -1,17 +1,23 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-# from .forms import RegisterForm, LoginForm
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
+from rest_framework.permissions import AllowAny
 
 from motosell_app.forms import CreateOfferForm
 from motosell_app.models import CarOffer
+from rest_framework import viewsets
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+
 
 
 # def home(request):
 #
 #
 #     return render(request, 'motosell_app/home.html')
+
+from motosell_app.serializers import UserSerializer, CarOfferSerializer
+
 
 @login_required
 def create_offer(request):
@@ -31,6 +37,18 @@ def create_offer(request):
 
     create_offer_form = CreateOfferForm()
     return render(request, 'motosell_app/create_offer.html', {'create_offer_form': create_offer_form})
+
+
+class CarOfferViewSet(viewsets.ModelViewSet):
+    serializer_class = CarOfferSerializer
+    queryset = CarOffer.objects.all()
+    permission_classes = (AllowAny,)
+
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response(serializer.data)
 
 
 @login_required
