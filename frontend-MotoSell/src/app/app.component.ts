@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
@@ -11,16 +11,21 @@ import {UserService} from "./services/user.service";
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent  {
+    // @ViewChild(LoginComponent) loginComponent!: ComponentType<LoginComponent>
+
+
     title = 'frontend-MotoSell';
     registerComponent: ComponentType<RegistrationComponent> =
         RegistrationComponent;
     loginComponent: ComponentType<LoginComponent> = LoginComponent;
 
-    constructor(public dialog: MatDialog, public userService: UserService) {
-    }
 
-    openDialog(componentName: ComponentType<unknown>): void {
+
+
+    constructor(public dialog: MatDialog, public userService: UserService) {}
+
+    openDialog(componentName: ComponentType<any>): void {
         const dialogRef = this.dialog.open(componentName, {
             width: '300px',
             // data: {user: User},

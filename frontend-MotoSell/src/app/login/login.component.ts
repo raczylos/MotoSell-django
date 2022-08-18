@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
                 this.userService
                     .loginUser(res.access)
                     .subscribe((res2) => {
-                        console.log(res2);
+                        console.log(JSON.stringify(res2));
                         this.userService.isLoggedIn = true;
                     });
 
