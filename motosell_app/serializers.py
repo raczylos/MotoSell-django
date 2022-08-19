@@ -20,11 +20,13 @@ class CarOfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = CarOffer
 
-        fields = ('title', 'description', 'author', 'car_category', 'brand', 'model', 'manufacture_year', 'mileage',
+        fields = ('id', 'title', 'description', 'author', 'car_category', 'brand', 'model', 'manufacture_year', 'mileage',
                   'cubic_capacity', 'power', 'fuel_category', 'image')
+        read_only_fields = ('id',)
 
         def create(self, validated_data):
             car_offer = CarOffer.objects.create(
+
                 title=validated_data['title'],
                 description=validated_data['description'],
                 author=validated_data['author'],
@@ -39,6 +41,7 @@ class CarOfferSerializer(serializers.ModelSerializer):
                 image=validated_data['image']
 
             )
+
             car_offer.save()
 
             return car_offer

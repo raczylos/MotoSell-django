@@ -24,6 +24,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {CreateOfferComponent} from "./create-offer/create-offer.component";
 import {JwtInterceptor} from "./jwt.interceptor";
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {OfferItemComponent} from "./offer-item/offer-item.component";
 
 @NgModule({
     declarations: [
@@ -32,7 +34,8 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
         LoginComponent,
         RegistrationComponent,
         OffersComponent,
-        CreateOfferComponent
+        CreateOfferComponent,
+        OfferItemComponent
     ],
     imports: [
         BrowserModule,
@@ -50,6 +53,7 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
         MatDialogModule,
         MatCardModule,
         MatGridListModule,
+        FlexLayoutModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

@@ -18,6 +18,7 @@
         <a *ngIf="!userService.isLoggedIn" mat-button (click)="openDialog(registerComponent)"  target="_blank">Rejestracja</a>
         <a *ngIf="!userService.isLoggedIn" mat-button (click)="openDialog(loginComponent)"  target="_blank">Logowanie</a>
         <a *ngIf="userService.isLoggedIn" mat-button (click)="userService.logOut()"  target="_blank">Wyloguj</a>
+        <span *ngIf="userService.isLoggedIn"> {{username}} </span>
         <button
             mat-icon-button
             [matMenuTriggerFor]="menu"

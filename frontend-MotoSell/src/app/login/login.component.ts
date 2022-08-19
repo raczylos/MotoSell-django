@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
             password: this.loginForm.value.password!,
         };
 
+
+
         let tokens = this.userService.getAuthToken(login).subscribe((res: any) => {
             console.log(res);
             if (res == undefined) {
@@ -39,7 +41,8 @@ export class LoginComponent implements OnInit {
                 this.userService
                     .loginUser(res.access)
                     .subscribe((res2) => {
-                        console.log(JSON.stringify(res2));
+                        console.log(res2);
+                        localStorage.setItem('userId', JSON.stringify(res2));
                         this.userService.isLoggedIn = true;
                     });
 
@@ -47,6 +50,7 @@ export class LoginComponent implements OnInit {
 
             }
         });
+
     }
 
     onNoClick(): void {

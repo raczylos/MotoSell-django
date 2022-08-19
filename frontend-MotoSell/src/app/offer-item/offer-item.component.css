@@ -1,0 +1,24 @@
+.content {
+    padding: 16px;
+    margin: 10px 50px 10px 50px;
+
+}
+
+
+.offer-card {
+    margin: auto;
+    max-width: 70%;
+    max-height: 70%;
+
+
+    border: 1px solid #ded9d9;
+
+}
+
+
+/*.image {*/
+
+/*    margin: auto;*/
+/*    display: block;*/
+/*    width: 90%;*/
+/*}*/

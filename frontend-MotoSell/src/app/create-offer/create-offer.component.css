@@ -1,0 +1,32 @@
+.create-offer-card {
+
+    border: 1px solid #ded9d9;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    min-width: 200px;
+
+
+}
+
+.navigation-buttons {
+    float: right;
+}
+
+.mat-form-field {
+    padding: 16px;
+    min-width: 100px;
+
+}
+
+.title {
+    width: 95%;
+}
+.description {
+    width: 95%;
+}
+
+
+.content {
+    padding: 16px;
+    margin: 10px 50px 10px 50px;
+}

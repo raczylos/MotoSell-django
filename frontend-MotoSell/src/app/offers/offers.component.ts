@@ -24,7 +24,5 @@ export class OffersComponent implements OnInit {
             console.log(this.offers);
         });
     }
-    doStuff(){
-        console.log("card clicked")
-    }
+
 }

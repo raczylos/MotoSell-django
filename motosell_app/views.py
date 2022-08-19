@@ -51,8 +51,8 @@ class CarOfferViewSet(viewsets.ModelViewSet):
     #     return Response(serializer.data)
 
 
-# @login_required
-# def user_offers(request):
-#     offer_list = CarOffer.objects.filter(author=request.user)
-#
-#     return render(request, 'motosell_app/home.html', {'offer_list': offer_list})
+@login_required
+def user_offers(request):
+    offer_list = CarOffer.objects.filter(author=request.user)
+
+    return render(request, 'motosell_app/home.html', {'offer_list': offer_list})

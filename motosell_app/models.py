@@ -10,9 +10,9 @@ class CarOffer(models.Model):
     CAR = "CAR"
     TRUCK = "TRUCK"
     car_categories = [
-        (MOTORCYCLE, 'motocykl'),
-        (CAR, 'osobowy'),
-        (TRUCK, 'ciężarowy'),
+        (MOTORCYCLE, "motocykl"),
+        (CAR, "osobowy"),
+        (TRUCK, "ciężarowy"),
     ]
     car_category = models.CharField(max_length=16, choices=car_categories)
 
@@ -37,8 +37,10 @@ class CarOffer(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     #gallery
-    image = models.ImageField(upload_to='files/images')
+    image = models.ImageField(blank=True, null=True, upload_to='files/images')
     #TODO gallery
+
+    isPublished = models.BooleanField(default=None, null=True, blank=True)
 
     pub_date = models.DateField(default=None, null=True)
     add_date = models.DateField(auto_now_add=True)

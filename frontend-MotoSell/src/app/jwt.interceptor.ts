@@ -4,9 +4,9 @@ import {
     HttpRequest,
     HttpHandler,
     HttpEvent,
-    HttpInterceptor, HttpHeaders, HttpClient
+    HttpInterceptor, HttpHeaders, HttpClient, HttpErrorResponse
 } from '@angular/common/http';
-import {catchError, filter, first, Observable, timeout} from 'rxjs';
+import {catchError, filter, first, Observable, throwError, timeout} from 'rxjs';
 import {UserService} from "./services/user.service";
 
 @Injectable()
@@ -57,7 +57,12 @@ export class JwtInterceptor implements HttpInterceptor {
         }
 
         console.log(request)
-        return next.handle(request)
+
+        return next.handle(request).pipe(
+            catchError((error: HttpErrorResponse) => {
+                return throwError(error);
+            })
+        );
     }
 
 

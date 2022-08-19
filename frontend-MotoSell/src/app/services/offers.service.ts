@@ -15,23 +15,23 @@ const httpOptions = {
 export class OffersService {
     constructor(private http: HttpClient) {}
 
-    private base_url = 'http://192.168.8.141:9000/';
+    private base_url = 'http://192.168.43.244:9000/';
 
     getOffers(): Observable<CarOffer[]> {
         let url = 'offers/';
-        // let tokens = JSON.parse(localStorage.getItem('authTokens')!);
-        // console.log(tokens['access']);
-        // httpOptions.headers = httpOptions.headers.set(
-        //     'Authorization',
-        //     'bearer ' + tokens['access']
-        // );
-        // console.log(httpOptions);
+
         return this.http.get<CarOffer[]>(this.base_url + url, httpOptions);
     }
 
-    addOffer(): Observable<CarOffer> {
+    getOfferItem(id: Number): Observable<CarOffer> {
+        let url = `offers/${id}/`;
 
-        let url = 'offers/create';
-        return this.http.post<CarOffer>(this.base_url + url, '', httpOptions);
+        return this.http.get<CarOffer>(this.base_url + url, httpOptions);
+    }
+
+    addOffer(carOffer: CarOffer): Observable<CarOffer> {
+        let url = 'offers/';
+
+        return this.http.post<CarOffer>(this.base_url + url, carOffer, httpOptions);
     }
 }

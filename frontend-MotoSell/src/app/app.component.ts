@@ -20,10 +20,22 @@ export class AppComponent  {
         RegistrationComponent;
     loginComponent: ComponentType<LoginComponent> = LoginComponent;
 
-
-
+    username: string = ''
 
     constructor(public dialog: MatDialog, public userService: UserService) {}
+
+    ngOnInit(): void {
+
+        let userId = localStorage.getItem('userId');
+        if(userId){
+            let userIdJSON = JSON.parse(localStorage.getItem('userId')!)
+            this.userService.getUser(userIdJSON.user_id).subscribe((res) => {
+                this.username = res.username
+            })
+        }
+
+
+    }
 
     openDialog(componentName: ComponentType<any>): void {
         const dialogRef = this.dialog.open(componentName, {

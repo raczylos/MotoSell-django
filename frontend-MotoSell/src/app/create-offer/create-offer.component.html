@@ -1,63 +1,77 @@
-<mat-grid-list cols="2" rowHeight="100px" [gutterSize]="'10px'">
-    <mat-grid-tile>
 
-    </mat-grid-tile>
-</mat-grid-list>
+<div class="content">
+    <h1>Stwórz ogłoszenie</h1>
+    <form [formGroup]="carOfferForm">
+        <mat-card  class="create-offer-card">
 
-<mat-card>
-    <mat-form-field appearance="fill">
-        <mat-label>Tytuł</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Opis</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Kategoria pojazdu</mat-label>
-        <mat-select>
-            <mat-option value="one">motocykl</mat-option>
-            <mat-option value="two">osobowy</mat-option>
-            <mat-option value="three">ciężarowy</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Marka</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Model</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Rok produkcji</mat-label>
-        <input type="number" matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Przebieg</mat-label>
-        <input type="number" matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Pojemność skokowa</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Pojemność skokowa</mat-label>
-        <input type="number" matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Moc</mat-label>
-        <input type="number" matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Rodzaj paliwa</mat-label>
-        <mat-select>
-            <mat-option value="one">motocykl</mat-option>
-            <mat-option value="two">osobowy</mat-option>
-            <mat-option value="three">ciężarowy</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <input class="ng-hide" id="input-file-id" type="file" />
-    <label for="input-file-id" class="md-button md-raised md-primary">Dodaj zdjęcie</label>
+            <h1>Opis Pojazdu</h1>
+            <div>
+                <mat-form-field class="title" appearance="fill" >
+                    <mat-label>Tytuł</mat-label>
+                    <input formControlName="title" required matInput />
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="description" appearance="fill">
+                    <mat-label>Opis</mat-label>
+                    <textarea cdkTextareaAutosize matInput formControlName="description" required></textarea>
+                </mat-form-field>
+            </div>
 
-</mat-card>
+            <div>
+                <input style="display: none" id="file" name="file" type="file" (change)="onFileSelected($event)" #hiddenfileinput />
+                <button mat-raised-button color="primary" (click)="hiddenfileinput.click()"  class="waves-effect waves-light btn" >
+                    <i class="material-icons left">file_upload</i>Dodaj zdjęcie</button>
+            </div>
+
+        </mat-card>
+
+        <mat-card class="create-offer-card">
+            <h1>Dane techniczne</h1>
+            <mat-form-field appearance="fill">
+                <mat-label>Kategoria pojazdu</mat-label>
+                <mat-select formControlName="car_category" required>
+                    <mat-option value=MOTORCYCLE>motocykl</mat-option>
+                    <mat-option value=CAR>osobowy</mat-option>
+                    <mat-option value=TRUCK>ciężarowy</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Marka</mat-label>
+                <input matInput formControlName="brand" required/>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Model</mat-label>
+                <input matInput formControlName="model" required/>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Rok produkcji</mat-label>
+                <input type="number" matInput formControlName="manufacture_year" required/>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Pojemność skokowa</mat-label>
+                <input type="number" matInput formControlName="cubic_capacity" required/>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Moc</mat-label>
+                <input type="number" matInput formControlName="power" required/>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Rodzaj paliwa</mat-label>
+                <mat-select formControlName="fuel_category" required>
+                    <mat-option value="LPG">LPG</mat-option>
+                    <mat-option value="DIESEL">benzyna</mat-option>
+                    <mat-option value="PETROL">diesel</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Przebieg</mat-label>
+                <input formControlName="mileage" required type="number" matInput />
+            </mat-form-field>
+        </mat-card>
+        <div class="navigation-buttons">
+            <button mat-button routerLink="/" >Wstecz</button>
+            <button mat-raised-button color="primary" (click)="onSubmit()" routerLink="/">Dodaj ogłoszenie</button>
+        </div>
+    </form>
+</div>

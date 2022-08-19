@@ -15,7 +15,7 @@ const httpOptions = {
     providedIn: 'root',
 })
 export class UserService {
-    private base_url = 'http://192.168.8.141:9000/';
+    private base_url = 'http://192.168.43.244:9000/';
 
     // public isLoggedIn: boolean = JSON.parse(
     //     localStorage.getItem('authTokens')!
@@ -58,6 +58,11 @@ export class UserService {
     getUsers(): Observable<User[]> {
         let url = 'accounts/users/';
         return this.http.get<User[]>(this.base_url + url);
+    }
+
+    getUser(id: Number): Observable<User> {
+        let url = `accounts/users/${id}/`;
+        return this.http.get<User>(this.base_url + url);
     }
 
     logOut() {

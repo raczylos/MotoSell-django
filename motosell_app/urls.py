@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
@@ -17,4 +19,4 @@ urlpatterns = [
     # path('offer/create', views.create_offer, name="create_offer")
     # path('', include('django.contrib.auth.urls')),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
