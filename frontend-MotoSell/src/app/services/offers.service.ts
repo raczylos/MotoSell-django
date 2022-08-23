@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 
 const httpOptions = {
     headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
     }),
 };
 

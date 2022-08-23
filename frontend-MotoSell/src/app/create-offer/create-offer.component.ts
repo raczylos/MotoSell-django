@@ -27,7 +27,7 @@ export class CreateOfferComponent implements OnInit {
         cubic_capacity: [''],
         power: [''],
         fuel_category: [''],
-        image: [''],
+        image: File,
         // pub_date = Date
     });
 
@@ -60,6 +60,8 @@ export class CreateOfferComponent implements OnInit {
 
         // @ts-ignore
         formData.append('image', this.carOfferForm.get('image'))
+        console.log(formData.get('image'))
+
 
 
 
@@ -82,7 +84,11 @@ export class CreateOfferComponent implements OnInit {
             fuel_category: this.carOfferForm.value.fuel_category!,
             author: userId!,
 
-            image: null!,
+            // image: this.carOfferForm.value.image! as File ? this.carOfferForm.value.image! : null,
+            // @ts-ignore
+            image: formData,
+            // image: this.carOfferForm.value.image,
+            // image: null,
             pub_date: dateNow,
         };
 
