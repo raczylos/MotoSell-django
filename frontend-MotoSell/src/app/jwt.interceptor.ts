@@ -20,11 +20,13 @@ import {
     timeout
 } from 'rxjs';
 import {UserService} from "./services/user.service";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-    constructor(private jwtHelper: JwtHelperService, private inject: Injector) {}
+    constructor(private jwtHelper: JwtHelperService, private inject: Injector, private router: Router) {
+    }
 
     private refreshTokenInProgress = false;
     private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
@@ -33,87 +35,51 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-
-
-        // let tokens = localStorage.getItem('authTokens')
-        // console.log("i am in JWTinterceptor");
-        // console.log("hmm " + tokens)
-        //  if(tokens){
-        //      console.log("proboje bearer dodac")
-        //      let tokensJSON = JSON.parse(tokens)
-        //      let accessToken = tokensJSON['access']
-        //      console.log("to chce " + accessToken)
-        //      request = request.clone({
-        //          setHeaders: {Authorization: `Bearer ${accessToken}`}
-        //          // headers: request.headers.set("Authorization", "Bearer " + this.tokens)
-        //      });
-        //  }
-
-        let authService = this.inject.get(UserService)
-        // if(tokens){  // if tokens exist in localStorage
-        //     let tokensJSON = JSON.parse(tokens)
-        //     let accessToken = tokensJSON['access']
-        //     console.log(accessToken)
-        //
-        //     if(this.jwtHelper.isTokenExpired(tokensJSON['refresh'])){
-        //         //logout
-        //         console.log("refresh token expired")
-        //         authService.logOut()
-        //         return next.handle(request);
-        //     }
-        //     else if(this.jwtHelper.isTokenExpired(tokensJSON['access'])){
-        //         console.log("access token expired")
-        //
-        //         authService.updateAuthToken()
-        //             .subscribe((res) => {
-        //                 if(res){
-        //                     console.log("updated: " + JSON.stringify(res))
-        //                     localStorage.setItem('authTokens', JSON.stringify(res));
-        //                     accessToken = tokensJSON['access']
-        //                     request = request.clone({setHeaders: {Authorization: `Bearer ${accessToken}`}})
-        //                 }
-        //                 else{
-        //                     console.log("bug?")
-        //                 }
-        //             })
-        //     }
-        //     else{
-        //         console.log("not updating")
-        //          request = request.clone({setHeaders: {Authorization: `Bearer ${accessToken}`}})
-        //     }
-        //
-        // }
-        // else{
-        //     console.log("no token")
+        // console.log(request)
+        // if(!request.url.match("http://192.168.43.244:9000/offers/")){
+        //     console.log("vasd")
+        //     request = this.addAuthenticationToken(request)
         // }
 
-        console.log(request)
+        if(this.router.url !== "/" || request.url.match("http://192.168.43.244:9000/accounts/login/")){
+            console.log("vasd")
+            request = this.addAuthenticationToken(request)
+        }
 
-        request = this.addAuthenticationToken(request)
+        // if(this.router.url == "/offer/create") {
+        //     console.log("create")
+        //     request = request.clone({
+        //         setHeaders: {'Content-Type': 'multipart/form-data;charset=UTF-8'}
+        //     });
+        // }
+
+
 
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
-                if(error && error.status === 401){
+                if (error && error.status === 401) {
                     console.log("jestem w 401")
-                    if(this.refreshTokenInProgress){
+                    if (this.refreshTokenInProgress) {
                         console.log("refresh token in progress true")
                         return this.refreshTokenSubject.pipe(
                             filter(result => result !== null),
                             take(1),
-                            timeout(2500),
-                            switchMap(() =>  next.handle(this.addAuthenticationToken(request)))
+                            switchMap(() => next.handle(this.addAuthenticationToken(request)))
                         )
-                    }
-                    else {
+                    } else {
                         this.refreshTokenInProgress = true
                     }
                     this.refreshTokenSubject.next(null)
 
                     return this.refreshAccessToken().pipe(
-                        timeout(2500),
-                        switchMap((success: boolean) => {
-                            console.log("success:" + success)
-                            this.refreshTokenSubject.next(success)
+                        switchMap((response) => {
+                            if (response) {
+                                localStorage.setItem('authTokens', JSON.stringify(response))
+                                console.log("successfully updated token: " + JSON.stringify(response))
+                                this.refreshTokenSubject.next(response)
+                            } else {
+                                console.log("not here")
+                            }
 
                             return next.handle(this.addAuthenticationToken(request))
                         }),
@@ -129,25 +95,13 @@ export class JwtInterceptor implements HttpInterceptor {
     private refreshAccessToken(): Observable<any> {
         let authService = this.inject.get(UserService)
 
-        return of(authService.updateAuthToken()
-            .subscribe((res) => {
-                if(res){
-                    console.log("updated: " + JSON.stringify(res))
-                    let x = localStorage.setItem('authTokens', JSON.stringify(res));
+        return authService.updateAuthToken()
 
-                }
-                else{
-                    console.log("bug?")
-                    // return ''
-                }
-            }))
 
     }
 
 
     private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
-        // If we do not have a token yet then we should not set the header.
-        // Here we could first retrieve the token from where we store it.
         let tokens = localStorage.getItem('authTokens')
         if (!tokens) {
 
@@ -155,19 +109,30 @@ export class JwtInterceptor implements HttpInterceptor {
         }
         let tokensJSON = JSON.parse(tokens)
         let accessToken = tokensJSON['access']
-        // // If you are calling an outside domain then do not add the token.
+
+        // // // If you are calling an outside domain then do not add the token.
         // if (!request.url.match(/www.mydomain.com\//)) {
         //   return request;
+        // // }
+
+        // if (request.url.match('192.168.43.244:9000/offers/')) {
+        //     if (request.body instanceof FormData) {
+        //         // if (request.headers.has('Content-Type')) {
+        //         request = request.clone({headers: request.headers.delete('Content-Type', 'application/json')});
+        //         request = request.clone({
+        //             setHeaders: {'Content-Type': `multipart/form-data`}
+        //         });
+        //     }
         // }
+            console.log(tokens)
+            console.log(request)
+            request = request.clone({
+                setHeaders: {Authorization: `Bearer ${accessToken}`}
+            });
+            return request
 
-        console.log(tokens)
-        console.log(request)
-        return request = request.clone({
-            setHeaders: {Authorization: `Bearer ${accessToken}`}
-            // headers: request.headers.set("Authorization", "Bearer " + this.tokens)
-        });
+
+
     }
-
-
 }
 

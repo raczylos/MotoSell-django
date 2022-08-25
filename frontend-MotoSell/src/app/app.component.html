@@ -11,6 +11,7 @@
 
         <span [style.cursor]="'pointer'" routerLink="/">MotoSell</span>
         <span [style.cursor]="'pointer'" style="padding-left:30px;" routerLink="/offer/create">Stwórz ofertę</span>
+        <span *ngIf="userService.isLoggedIn" [style.cursor]="'pointer'" style="padding-left:30px;" routerLink="/test/offers">Moje oferty</span>
 
 
 

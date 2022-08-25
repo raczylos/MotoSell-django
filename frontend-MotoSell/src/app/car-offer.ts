@@ -15,4 +15,5 @@ export interface CarOffer {
     author: string;
     image: File | null;
     pub_date: Date;
+    isPublished: boolean;
 }

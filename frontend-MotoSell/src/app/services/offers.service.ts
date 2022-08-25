@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 
 const httpOptions = {
     headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/json',
     }),
 };
 
@@ -23,13 +23,15 @@ export class OffersService {
         return this.http.get<CarOffer[]>(this.base_url + url, httpOptions);
     }
 
+
+
     getOfferItem(id: Number): Observable<CarOffer> {
         let url = `offers/${id}/`;
 
         return this.http.get<CarOffer>(this.base_url + url, httpOptions);
     }
 
-    addOffer(carOffer: CarOffer): Observable<CarOffer> {
+    addOffer(carOffer: any): Observable<CarOffer> {
         let url = 'offers/';
 
         return this.http.post<CarOffer>(this.base_url + url, carOffer, httpOptions);

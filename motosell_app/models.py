@@ -33,19 +33,18 @@ class CarOffer(models.Model):
     ]
     fuel_category = models.CharField(max_length=16, choices=fuel_categories)
 
-    #user
+    # user
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    #gallery
+    # gallery
     image = models.ImageField(blank=True, null=True, upload_to='files/images')
-    #TODO gallery
+    # TODO gallery
 
-    isPublished = models.BooleanField(default=None, null=True, blank=True)
+    isPublished = models.BooleanField(default=None)
+    isDeleted = models.BooleanField(default=None)
 
     pub_date = models.DateField(default=None, null=True)
     add_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.title
-
-

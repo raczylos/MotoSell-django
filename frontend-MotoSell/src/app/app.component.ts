@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component, Injector, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
@@ -20,12 +20,14 @@ export class AppComponent  {
         RegistrationComponent;
     loginComponent: ComponentType<LoginComponent> = LoginComponent;
 
-    username: string = ''
+
+
 
     constructor(public dialog: MatDialog, public userService: UserService) {}
 
-    ngOnInit(): void {
+    username: string = ''
 
+    getUsername(): void {
         let userId = localStorage.getItem('userId');
         if(userId){
             let userIdJSON = JSON.parse(localStorage.getItem('userId')!)
@@ -33,9 +35,17 @@ export class AppComponent  {
                 this.username = res.username
             })
         }
+    }
+
+    ngOnInit(): void {
+
+        this.getUsername()
 
 
     }
+
+
+
 
     openDialog(componentName: ComponentType<any>): void {
         const dialogRef = this.dialog.open(componentName, {
@@ -44,6 +54,7 @@ export class AppComponent  {
         });
 
         dialogRef.afterClosed().subscribe((result) => {
+            this.getUsername()
             console.log('The dialog was closed');
             // console.log(JSON.stringify(result))
         });

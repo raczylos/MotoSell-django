@@ -19,7 +19,6 @@ export class OffersComponent implements OnInit {
 
     ngOnInit(): void {
         this.offersService.getOffers().subscribe((res: any) => {
-
             this.offers.push(...res.results)
             console.log(this.offers);
         });

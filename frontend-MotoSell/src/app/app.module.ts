@@ -17,7 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatDialogModule } from '@angular/material/dialog';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {OffersComponent} from "./offers/offers.component";
 import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
@@ -26,6 +26,7 @@ import {JwtInterceptor} from "./jwt.interceptor";
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {OfferItemComponent} from "./offer-item/offer-item.component";
+import {UserOffersComponent} from "./user-offers/user-offers.component";
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import {OfferItemComponent} from "./offer-item/offer-item.component";
         RegistrationComponent,
         OffersComponent,
         CreateOfferComponent,
-        OfferItemComponent
+        OfferItemComponent,
+        UserOffersComponent
     ],
     imports: [
         BrowserModule,
@@ -58,7 +60,8 @@ import {OfferItemComponent} from "./offer-item/offer-item.component";
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-        JwtHelperService
+        JwtHelperService,
+        LoginComponent
     ],
     bootstrap: [AppComponent],
 })
