@@ -21,12 +21,11 @@ class CarOfferSerializer(serializers.ModelSerializer):
         model = CarOffer
 
         fields = ('id', 'title', 'description', 'author', 'car_category', 'brand', 'model', 'manufacture_year', 'mileage',
-                  'cubic_capacity', 'power', 'fuel_category', 'image', 'isPublished')
+                  'cubic_capacity', 'power', 'fuel_category', 'image', 'isPublished', "isDeleted", "pub_date")
         read_only_fields = ('id',)
 
         def create(self, validated_data):
             car_offer = CarOffer.objects.create(
-
                 title=validated_data['title'],
                 description=validated_data['description'],
                 author=validated_data['author'],
@@ -39,7 +38,9 @@ class CarOfferSerializer(serializers.ModelSerializer):
                 power=validated_data['power'],
                 fuel_category=validated_data['fuel_category'],
                 image=validated_data['image'],
-                isPublished=validated_data['isPublished']
+                isPublished=validated_data['isPublished'],
+                isDeleted=validated_data['isDeleted'],
+                pub_date=validated_data['pub_date']
 
             )
 

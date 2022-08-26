@@ -10,8 +10,8 @@
         </button>
 
         <span [style.cursor]="'pointer'" routerLink="/">MotoSell</span>
-        <span [style.cursor]="'pointer'" style="padding-left:30px;" routerLink="/offer/create">Stwórz ofertę</span>
-        <span *ngIf="userService.isLoggedIn" [style.cursor]="'pointer'" style="padding-left:30px;" routerLink="/test/offers">Moje oferty</span>
+        <span *ngIf="userService.isLoggedIn" [style.cursor]="'pointer'" style="padding-left:30px;" routerLink="/offer/create">Stwórz ofertę</span>
+        <span *ngIf="userService.isLoggedIn" [style.cursor]="'pointer'" style="padding-left:30px;" routerLink="/{{username}}/offers">Moje oferty</span>
 
 
 
@@ -19,6 +19,7 @@
         <a *ngIf="!userService.isLoggedIn" mat-button (click)="openDialog(registerComponent)"  target="_blank">Rejestracja</a>
         <a *ngIf="!userService.isLoggedIn" mat-button (click)="openDialog(loginComponent)"  target="_blank">Logowanie</a>
         <a *ngIf="userService.isLoggedIn" mat-button (click)="userService.logOut()"  target="_blank">Wyloguj</a>
+
         <span *ngIf="userService.isLoggedIn"> {{username}} </span>
         <button
             mat-icon-button
@@ -28,6 +29,12 @@
             <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
+
+<!--             <span *ngIf="userService.isLoggedIn" [style.cursor]="'pointer'" style="padding-left:30px;" routerLink="/{{username}}/offers">Moje oferty</span>-->
+            <button *ngIf="userService.isLoggedIn"  mat-menu-item routerLink="/{{username}}/offers" >
+                <mat-icon>view_list</mat-icon>
+                <span>Moje oferty</span>
+            </button>
             <button *ngIf="!userService.isLoggedIn" mat-menu-item (click)="openDialog(registerComponent)">
                 <mat-icon>app_registration</mat-icon>
                 <span>Rejestracja</span>
@@ -39,7 +46,7 @@
 
             <button *ngIf="userService.isLoggedIn" mat-menu-item (click)="userService.logOut()" >
                 <mat-icon>logout</mat-icon>
-                <span>Wyloguj</span>
+                <span >Wyloguj</span>
             </button>
         </mat-menu>
     </mat-toolbar>

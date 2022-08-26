@@ -13,7 +13,8 @@ export interface CarOffer {
     power: string;
     fuel_category: string;
     author: string;
-    image: File | null;
-    pub_date: Date;
+    image?: File | null | string;
+    pub_date: Date | null | string;
     isPublished: boolean;
+    isDeleted: boolean;
 }

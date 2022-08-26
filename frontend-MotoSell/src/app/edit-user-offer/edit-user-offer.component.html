@@ -1,6 +1,5 @@
-
 <div class="content">
-    <h1>Stwórz ogłoszenie</h1>
+    <h1>Edytuj ogłoszenie</h1>
     <form [formGroup]="carOfferForm">
         <mat-card  class="create-offer-card">
 
@@ -8,7 +7,7 @@
             <div>
                 <mat-form-field class="title" appearance="fill" >
                     <mat-label>Tytuł</mat-label>
-                    <input formControlName="title" required matInput />
+                    <input formControlName="title"  required matInput/>
                 </mat-form-field>
             </div>
             <div>
@@ -24,7 +23,7 @@
                     <i class="material-icons left">file_upload</i>Dodaj zdjęcie</button>
             </div>
 
-            <img [src]="this.imageSrc" *ngIf="this.imageSrc" style="height: 300px; width:500px">
+            <img class="image-preview" [src]="this.imageSrc"  style="height: 300px; width:500px">
 
         </mat-card>
 
@@ -73,7 +72,7 @@
         </mat-card>
         <div class="navigation-buttons">
             <button mat-button routerLink="/" >Wstecz</button>
-            <button mat-raised-button color="primary" (click)="onSubmit()" routerLink="/">Dodaj ogłoszenie</button>
+            <button mat-raised-button color="primary" (click)="onSubmit()" routerLink="/{{username}}/offers">Edytuj</button>
         </div>
     </form>
 </div>

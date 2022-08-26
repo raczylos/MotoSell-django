@@ -40,8 +40,8 @@ class CarOffer(models.Model):
     image = models.ImageField(blank=True, null=True, upload_to='files/images')
     # TODO gallery
 
-    isPublished = models.BooleanField(default=None)
-    isDeleted = models.BooleanField(default=None)
+    isPublished = models.BooleanField(default=False)
+    isDeleted = models.BooleanField(default=False)
 
     pub_date = models.DateField(default=None, null=True)
     add_date = models.DateField(auto_now_add=True)

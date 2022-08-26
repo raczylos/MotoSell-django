@@ -1,1 +1,39 @@
-<p>user-offers works!</p>
+<div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="20px grid">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let offer of offers">
+            <mat-card
+                [style.cursor]="'pointer'"
+                [routerLink]="[offer.id]"
+                class="offer-card"
+
+            >
+                <mat-card-title> {{ offer.title }}</mat-card-title>
+                <img
+                    class="image"
+                    mat-card-image
+                    src="{{ offer.image }}"
+                    alt="image"
+                />
+                <mat-card-content >
+                    <p>
+                        Rok produkcji: {{ offer.manufacture_year }} Przebieg:
+                        {{ offer.mileage }} Rodzaj paliwa:
+                        {{ offer.fuel_category }} Moc: {{ offer.power }}
+                    </p>
+                </mat-card-content>
+            </mat-card>
+
+
+            <div class="navigation-buttons">
+
+                <button class="publish-button" mat-raised-button color="primary"
+                    (click)="publishOffer(offer)"
+                    [ngClass]="{'green' : offer.isPublished, 'blue': !offer.isPublished}">
+                    {{offer.isPublished ? "Opublikowane" : "Opublikuj"}}
+                </button>
+                <button class="edit-button" mat-raised-button color="yellow" routerLink="{{offer.id}}"> Edytuj</button>
+                <button class="delete-button" mat-raised-button color="warn"  (click)="openDialog(offer.id, offer.title)" >Usuń ogłoszenie</button>
+            </div>
+        </div>
+    </div>
+</div>

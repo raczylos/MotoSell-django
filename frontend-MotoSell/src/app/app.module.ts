@@ -27,6 +27,8 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {OfferItemComponent} from "./offer-item/offer-item.component";
 import {UserOffersComponent} from "./user-offers/user-offers.component";
+import {DeleteUserOfferComponent} from "./delete-user-offer/delete-user-offer.component";
+import {EditUserOfferComponent} from "./edit-user-offer/edit-user-offer.component";
 
 @NgModule({
     declarations: [
@@ -37,7 +39,9 @@ import {UserOffersComponent} from "./user-offers/user-offers.component";
         OffersComponent,
         CreateOfferComponent,
         OfferItemComponent,
-        UserOffersComponent
+        UserOffersComponent,
+        DeleteUserOfferComponent,
+        EditUserOfferComponent
     ],
     imports: [
         BrowserModule,
@@ -55,13 +59,15 @@ import {UserOffersComponent} from "./user-offers/user-offers.component";
         MatDialogModule,
         MatCardModule,
         MatGridListModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        {provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
         JwtHelperService,
-        LoginComponent
+        LoginComponent,
+
     ],
     bootstrap: [AppComponent],
 })

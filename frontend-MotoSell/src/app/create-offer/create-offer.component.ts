@@ -29,20 +29,25 @@ export class CreateOfferComponent implements OnInit {
         fuel_category: [''],
         image: [''],
         isPublished: Boolean,
+        isDeleted: Boolean,
         // pub_date = Date
     });
     formData = new FormData()
+    imageSrc: string = '';
 
     onFileSelected(event: any) {
         const file = event.target.files[0];
         console.log(file)
-        // this.carOfferForm.value.image = file
         this.carOfferForm.get("image")!.setValue(file)
 
         this.formData.append('image', file)
-        // reader.addEventListener('load' (event: any) => {
-        //     this.carOfferForm.value.image =
-        // })
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            this.imageSrc = reader.result as string;
+        }
+
         console.log(this.carOfferForm.get("image")!.value)
 
     }
@@ -62,16 +67,7 @@ export class CreateOfferComponent implements OnInit {
         console.log(userId);
         const dateNow = new Date();
 
-
         console.log(this.carOfferForm.value.image)
-        console.log("hehe")
-
-        // @ts-ignore
-        // formData.append('image', this.carOfferForm.value.image!)
-        // formData.append('image', file)
-
-
-
 
         this.formData.append("title", this.carOfferForm.value.title!)
         this.formData.append("description", this.carOfferForm.value.description!)
@@ -85,41 +81,16 @@ export class CreateOfferComponent implements OnInit {
         this.formData.append("fuel_category", this.carOfferForm.value.fuel_category!)
         this.formData.append("author", userId!)
         this.formData.append("isPublished", "false")
-        this.formData.append("pub_date", dateNow.toString())
+        this.formData.append("isDeleted", "false")
+        this.formData.append("pub_date", "null")
+
 
         console.log(this.formData.get("title"))
         console.log(this.formData.get("image"))
 
         let carOffer: FormData = this.formData
 
-
-
-        // let carOffer: CarOffer = {
-        //
-        //     title: this.carOfferForm.value.title!,
-        //     description: this.carOfferForm.value.description!,
-        //     car_category: this.carOfferForm.value.car_category!,
-        //     brand: this.carOfferForm.value.brand!,
-        //     model: this.carOfferForm.value.model!,
-        //
-        //     manufacture_year: this.carOfferForm.value.manufacture_year!,
-        //
-        //     mileage: this.carOfferForm.value.mileage!,
-        //
-        //     cubic_capacity: this.carOfferForm.value.cubic_capacity!,
-        //
-        //     power: this.carOfferForm.value.power!,
-        //     fuel_category: this.carOfferForm.value.fuel_category!,
-        //     author: userId!,
-        //     // @ts-ignore
-        //     image: formData,
-        //     isPublished: false,
-        //     pub_date: dateNow,
-        // };
-
         this.offersService.addOffer(carOffer).subscribe((res) => {
-
-            console.log("here")
             console.log(res);
         });
     }

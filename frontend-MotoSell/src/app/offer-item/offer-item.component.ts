@@ -3,6 +3,7 @@ import {OffersService} from "../services/offers.service";
 import {ActivatedRoute} from "@angular/router";
 import {CarOffer} from "../car-offer";
 import {mergeMap, switchMap} from "rxjs";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
     selector: 'app-offer-item',
@@ -13,18 +14,6 @@ export class OfferItemComponent implements OnInit {
     offer!: CarOffer
     constructor(private offersService: OffersService, private route: ActivatedRoute) { }
 
-    // ngOnInit(): void {
-    //     this.route.params.subscribe(params => {
-    //         const id = params['id']
-    //
-    //         this.offersService.getOfferItem(id).subscribe((res) => {
-    //             console.log(res)
-    //             this.offer = res
-    //         })
-    //     });
-    //
-    //
-    // }
 
     ngOnInit(): void {
         this.route.params.pipe(

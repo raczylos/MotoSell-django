@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { DialogRef } from '@angular/cdk/dialog';
 import {UserService} from "./services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-root',
@@ -43,8 +44,6 @@ export class AppComponent  {
 
 
     }
-
-
 
 
     openDialog(componentName: ComponentType<any>): void {

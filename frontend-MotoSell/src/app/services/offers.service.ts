@@ -2,6 +2,7 @@ import { CarOffer } from './../car-offer';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
+import {catchError} from "rxjs";
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -31,9 +32,31 @@ export class OffersService {
         return this.http.get<CarOffer>(this.base_url + url, httpOptions);
     }
 
+    getImage(imageUrl: string): Observable<string> {
+        console.log("tutaj bardzo wazne " + imageUrl)
+
+        // let url = 'media/files/images/' + imageUrl;
+
+        return this.http
+            .get<string>(imageUrl)
+
+    }
+
     addOffer(carOffer: any): Observable<CarOffer> {
         let url = 'offers/';
 
-        return this.http.post<CarOffer>(this.base_url + url, carOffer, httpOptions);
+        return this.http.post<CarOffer>(this.base_url + url, carOffer);
+    }
+
+    editOffer(carOffer: any, id: Number): Observable<CarOffer> {
+        let url = `offers/${id}/`;
+
+        return this.http.put<CarOffer>(this.base_url + url, carOffer);
+    }
+
+    deleteOffer(id: Number): Observable<CarOffer> {
+        let url = `offers/${id}/`;
+
+        return this.http.delete<CarOffer>(this.base_url + url, httpOptions);
     }
 }

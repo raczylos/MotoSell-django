@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EMPTY, isEmpty, BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { Login } from '../login';
+import {Router} from "@angular/router";
 
 
 const httpOptions = {
@@ -24,7 +25,7 @@ export class UserService {
 
 
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
         console.log('user service constructor');
         // this.IntervalFunction();
 
@@ -69,7 +70,10 @@ export class UserService {
         console.log('logout');
         localStorage.clear();
         this.isLoggedIn = false;
+        this.router.navigate(['/'])
     }
+
+
 
     addUser(user: User): Observable<User> {
         let url = 'accounts/registration/';
