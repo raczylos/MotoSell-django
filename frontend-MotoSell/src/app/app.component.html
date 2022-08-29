@@ -11,7 +11,7 @@
 
         <span [style.cursor]="'pointer'" routerLink="/">MotoSell</span>
         <span *ngIf="userService.isLoggedIn" [style.cursor]="'pointer'" style="padding-left:30px;" routerLink="/offer/create">Stwórz ofertę</span>
-        <span *ngIf="userService.isLoggedIn" [style.cursor]="'pointer'" style="padding-left:30px;" routerLink="/{{username}}/offers">Moje oferty</span>
+        <span *ngIf="userService.isLoggedIn" [style.cursor]="'pointer'" style="padding-left:30px;" routerLink="/{{this.userService.username}}/offers">Moje oferty</span>
 
 
 
@@ -20,7 +20,7 @@
         <a *ngIf="!userService.isLoggedIn" mat-button (click)="openDialog(loginComponent)"  target="_blank">Logowanie</a>
         <a *ngIf="userService.isLoggedIn" mat-button (click)="userService.logOut()"  target="_blank">Wyloguj</a>
 
-        <span *ngIf="userService.isLoggedIn"> {{username}} </span>
+        <span *ngIf="userService.isLoggedIn"> {{this.userService.username}} </span>
         <button
             mat-icon-button
             [matMenuTriggerFor]="menu"
@@ -31,7 +31,7 @@
         <mat-menu #menu="matMenu">
 
 <!--             <span *ngIf="userService.isLoggedIn" [style.cursor]="'pointer'" style="padding-left:30px;" routerLink="/{{username}}/offers">Moje oferty</span>-->
-            <button *ngIf="userService.isLoggedIn"  mat-menu-item routerLink="/{{username}}/offers" >
+            <button *ngIf="userService.isLoggedIn"  mat-menu-item routerLink="/{{this.userService.username}}/offers" >
                 <mat-icon>view_list</mat-icon>
                 <span>Moje oferty</span>
             </button>
@@ -51,5 +51,7 @@
         </mat-menu>
     </mat-toolbar>
 </p>
+
+
 
 <router-outlet></router-outlet>

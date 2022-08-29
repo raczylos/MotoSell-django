@@ -1,7 +1,7 @@
 
 <div class="content">
     <h1>Stwórz ogłoszenie</h1>
-    <form [formGroup]="carOfferForm">
+    <form [formGroup]="carOfferForm"  >
         <mat-card  class="create-offer-card">
 
             <h1>Opis Pojazdu</h1>
@@ -9,19 +9,38 @@
                 <mat-form-field class="title" appearance="fill" >
                     <mat-label>Tytuł</mat-label>
                     <input formControlName="title" required matInput />
+                    <mat-error *ngIf="carOfferForm.controls['title'].errors?.['required']">Tytuł nie może być pusty!</mat-error>
+                    <mat-error *ngIf="carOfferForm.controls['title'].errors?.['minlength']">Tytuł musi być dłuższy niż 4 znaki!</mat-error>
                 </mat-form-field>
             </div>
+<!--            <div *ngIf="carOfferForm.controls['title'].invalid && (carOfferForm.controls['title'].dirty || carOfferForm.controls['title'].touched)" class="alert alert-danger">-->
+<!--                <div *ngIf="carOfferForm.controls['title'].errors?.['required']">-->
+<!--                    Tytuł nie może być pusty!-->
+<!--                </div>-->
+<!--                <div *ngIf="carOfferForm.controls['title'].errors?.['minlength']">-->
+<!--                    Tytuł musi być dłuższy niż 4 znaki!-->
+<!--                </div>-->
+<!--            </div>-->
+
             <div>
                 <mat-form-field class="description" appearance="fill">
                     <mat-label>Opis</mat-label>
                     <textarea cdkTextareaAutosize matInput formControlName="description" required></textarea>
+                    <mat-error *ngIf="carOfferForm.controls['description'].errors?.['required']">Opis nie może być pusty!</mat-error>
+                    <mat-error *ngIf="carOfferForm.controls['description'].errors?.['minlength']">Opis musi być dłuższy niż 10 znaków!</mat-error>
                 </mat-form-field>
             </div>
 
             <div>
                 <input style="display: none" id="file" name="file" type="file" (change)="onFileSelected($event)" #hiddenfileinput />
-                <button mat-raised-button color="primary" (click)="hiddenfileinput.click()"  class="waves-effect waves-light btn" >
-                    <i class="material-icons left">file_upload</i>Dodaj zdjęcie</button>
+
+                <a mat-raised-button color="primary" (click)="hiddenfileinput.click()"  class="file-upload" >
+                    <i class="material-icons left">file_upload</i>Dodaj zdjęcie</a>
+            </div>
+            <div class="alert alert-danger" *ngIf="carOfferForm.controls['image'].invalid && (carOfferForm.controls['image'].dirty || carOfferForm.controls['image'].touched)" >
+                <div *ngIf="carOfferForm.controls['image'].errors?.['required']">
+                  Dodaj zdjęcie!
+                </div>
             </div>
 
             <img [src]="this.imageSrc" *ngIf="this.imageSrc" style="height: 300px; width:500px">
@@ -37,43 +56,56 @@
                     <mat-option value=CAR>osobowy</mat-option>
                     <mat-option value=TRUCK>ciężarowy</mat-option>
                 </mat-select>
+                <mat-error *ngIf="carOfferForm.controls['car_category'].errors?.['required']">Wybierz kategorię pojazdu!</mat-error>
             </mat-form-field>
+
             <mat-form-field appearance="fill">
                 <mat-label>Marka</mat-label>
                 <input matInput formControlName="brand" required/>
+                <mat-error *ngIf="carOfferForm.controls['brand'].errors?.['required']">Pole marka nie może być puste!</mat-error>
+                <mat-error *ngIf="carOfferForm.controls['brand'].errors?.['maxlength']">Pole marka nie może być dłuższe niż 15 znaków!</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Model</mat-label>
                 <input matInput formControlName="model" required/>
+                <mat-error *ngIf="carOfferForm.controls['model'].errors?.['required']">Pole model nie może być puste!</mat-error>
+                <mat-error *ngIf="carOfferForm.controls['model'].errors?.['maxlength']">Pole model nie może być dłuższe niż 30 znaków!</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Rok produkcji</mat-label>
-                <input type="number" matInput formControlName="manufacture_year" required/>
+                <input type="number" min="1" matInput formControlName="manufacture_year" required/>
+                <mat-error *ngIf="carOfferForm.controls['manufacture_year'].errors?.['required']">Pole rok produkcji nie może być puste!</mat-error>
+                <mat-error *ngIf="carOfferForm.controls['manufacture_year'].errors?.['min']">Rok produkcji jest zbyt mały!</mat-error>
+                <mat-error *ngIf="carOfferForm.controls['manufacture_year'].errors?.['max']">Rok produkcji nie może być większy niż {{currentYear}}</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Pojemność skokowa</mat-label>
-                <input type="number" matInput formControlName="cubic_capacity" required/>
+                <input type="number" min="1" matInput formControlName="cubic_capacity" required/>
+                <mat-error *ngIf="carOfferForm.controls['cubic_capacity'].errors?.['required']">Pole pojemność skokowa nie może być puste!</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Moc</mat-label>
-                <input type="number" matInput formControlName="power" required/>
+                <input type="number" min="1" matInput formControlName="power" required/>
+                <mat-error *ngIf="carOfferForm.controls['power'].errors?.['required']">Pole moc nie może być puste!</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Rodzaj paliwa</mat-label>
                 <mat-select formControlName="fuel_category" required>
                     <mat-option value="LPG">LPG</mat-option>
-                    <mat-option value="DIESEL">benzyna</mat-option>
-                    <mat-option value="PETROL">diesel</mat-option>
+                    <mat-option value="Benzyna">benzyna</mat-option>
+                    <mat-option value="Diesel">diesel</mat-option>
                 </mat-select>
+                <mat-error *ngIf="carOfferForm.controls['fuel_category'].errors?.['required']">Wybierz rodzaj paliwa pojazdu!</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Przebieg</mat-label>
-                <input formControlName="mileage" required type="number" matInput />
+                <input formControlName="mileage" required type="number" min="1" matInput />
+                <mat-error *ngIf="carOfferForm.controls['mileage'].errors?.['required']">Pole przebieg nie może być puste!</mat-error>
             </mat-form-field>
         </mat-card>
         <div class="navigation-buttons">
             <button mat-button routerLink="/" >Wstecz</button>
-            <button mat-raised-button color="primary" (click)="onSubmit()" routerLink="/">Dodaj ogłoszenie</button>
+            <button mat-raised-button color="primary" (click)="onSubmit()">Dodaj ogłoszenie</button>
         </div>
     </form>
 </div>

@@ -14,7 +14,6 @@ export class OfferItemComponent implements OnInit {
     offer!: CarOffer
     constructor(private offersService: OffersService, private route: ActivatedRoute) { }
 
-
     ngOnInit(): void {
         this.route.params.pipe(
             switchMap((params) => {

@@ -1,11 +1,11 @@
-import {Component, Injector, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Injector, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { DialogRef } from '@angular/cdk/dialog';
 import {UserService} from "./services/user.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-root',
@@ -13,7 +13,6 @@ import {Router} from "@angular/router";
     styleUrls: ['./app.component.css'],
 })
 export class AppComponent  {
-    // @ViewChild(LoginComponent) loginComponent!: ComponentType<LoginComponent>
 
 
     title = 'frontend-MotoSell';
@@ -24,23 +23,19 @@ export class AppComponent  {
 
 
 
-    constructor(public dialog: MatDialog, public userService: UserService) {}
+    constructor(public dialog: MatDialog, public userService: UserService, private route: ActivatedRoute) {
+        route.params.subscribe(val => { //force component to recreate
+            this.userService.getUsername()
+        });
+    }
 
     username: string = ''
 
-    getUsername(): void {
-        let userId = localStorage.getItem('userId');
-        if(userId){
-            let userIdJSON = JSON.parse(localStorage.getItem('userId')!)
-            this.userService.getUser(userIdJSON.user_id).subscribe((res) => {
-                this.username = res.username
-            })
-        }
-    }
+
 
     ngOnInit(): void {
 
-        this.getUsername()
+        this.userService.getUsername()
 
 
     }
@@ -53,9 +48,11 @@ export class AppComponent  {
         });
 
         dialogRef.afterClosed().subscribe((result) => {
-            this.getUsername()
+            this.userService.getUsername()
+            // this.getUsername()
             console.log('The dialog was closed');
             // console.log(JSON.stringify(result))
         });
     }
+
 }

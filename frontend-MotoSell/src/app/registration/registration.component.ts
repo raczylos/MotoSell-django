@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { UserService } from '../services/user.service';
-import { FormBuilder } from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import { User } from '../user';
 import { MatDialogRef } from '@angular/material/dialog';
+import {Login} from "../login";
+import {LoginComponent} from "../login/login.component";
 
 @Component({
     selector: 'app-registration',
@@ -10,15 +12,16 @@ import { MatDialogRef } from '@angular/material/dialog';
     styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent implements OnInit {
+
     users: User[] = [];
+    login!: Login
 
     addUserForm = this.formBuilder.group({
-        id: '',
-        username: '',
-        password: '',
-        first_name: '',
-        last_name: '',
-        email: '',
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+        first_name: [''],
+        last_name: [''],
+        email: [''],
     });
 
     constructor(
@@ -33,27 +36,39 @@ export class RegistrationComponent implements OnInit {
 
     onSubmit(): void {
         let user: User = {
-            id: this.addUserForm.value.id!,
             username: this.addUserForm.value.username!,
             password: this.addUserForm.value.password!,
             first_name: this.addUserForm.value.first_name!,
             last_name: this.addUserForm.value.last_name!,
             email: this.addUserForm.value.email!,
         };
+        this.login =  {
+            username: this.addUserForm.value.username!,
+            password: this.addUserForm.value.password!,
+        };
 
         this.userService.addUser(user).subscribe((res) => {
             console.log(res);
             if(res == undefined){
-                console.log("incorrect data")
+                console.log("incorrect registration data")
+
             }
             else{
 
                 this.dialogRef.close();
             }
         });
+
     }
 
     onNoClick(): void {
         this.dialogRef.close();
     }
+
+    handleKeyUp(e: any){
+         if(e.keyCode === 13){
+            this.onSubmit();
+         }
+    }
+
 }

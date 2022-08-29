@@ -29,6 +29,7 @@ import {OfferItemComponent} from "./offer-item/offer-item.component";
 import {UserOffersComponent} from "./user-offers/user-offers.component";
 import {DeleteUserOfferComponent} from "./delete-user-offer/delete-user-offer.component";
 import {EditUserOfferComponent} from "./edit-user-offer/edit-user-offer.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
     declarations: [
@@ -60,6 +61,7 @@ import {EditUserOfferComponent} from "./edit-user-offer/edit-user-offer.componen
         MatCardModule,
         MatGridListModule,
         FlexLayoutModule,
+        MatProgressSpinnerModule,
 
     ],
     providers: [

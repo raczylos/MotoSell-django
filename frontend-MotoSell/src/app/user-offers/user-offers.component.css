@@ -57,3 +57,14 @@
 .delete-button {
     float: right;
 }
+
+mat-card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+span {
+    padding: 5px;
+    font-size: 1.200em;
+}

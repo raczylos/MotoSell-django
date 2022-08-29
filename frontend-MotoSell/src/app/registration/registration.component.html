@@ -1,6 +1,6 @@
 <div mat-dialog-content class="add-user">
     <h1>Rejestracja</h1>
-    <form [formGroup]="addUserForm">
+    <form [formGroup]="addUserForm" >
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Imię</mat-label>
@@ -23,21 +23,22 @@
             <mat-form-field appearance="fill">
                 <mat-label>Nazwa użytkownika</mat-label>
                 <input matInput formControlName="username" required/>
+                <mat-error *ngIf="addUserForm.controls.username.errors?.['required']">Nazwa użytkownika nie może być pusta!</mat-error>
             </mat-form-field>
         </div>
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Hasło</mat-label>
                 <input matInput type="password" formControlName="password" required/>
+                <mat-error *ngIf="addUserForm.controls.password.errors?.['required']">Hasło nie może być puste!</mat-error>
             </mat-form-field>
         </div>
 
 
-<!--        <button mat-raised-button color="primary">Submit</button>-->
-
         <div mat-dialog-actions >
             <button mat-button (click)="onNoClick()">Wstecz</button>
-            <button mat-button (click)="onSubmit()" cdkFocusInitial>Zatwierdź</button>
+            <button mat-button color="primary" (click)="onSubmit()" (keyup)="handleKeyUp($event)" cdkFocusInitial>Zatwierdź</button>
+
         </div>
 
     </form>

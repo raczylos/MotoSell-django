@@ -22,7 +22,7 @@ export class UserService {
     //     localStorage.getItem('authTokens')!
     // );
     public isLoggedIn: boolean = !!this.getAccessToken()
-
+    public username: string = ''
 
 
     constructor(private http: HttpClient, private router: Router) {
@@ -30,6 +30,19 @@ export class UserService {
         // this.IntervalFunction();
 
     }
+
+    getUsername(): void {
+        let userId = localStorage.getItem('userId');
+        if(userId){
+            let userIdJSON = JSON.parse(localStorage.getItem('userId')!)
+            this.getUser(userIdJSON.user_id).subscribe((res) => {
+                this.username = res.username
+            })
+        }
+
+    }
+
+
 
     // public IntervalFunction() {
     //     const interval = setInterval(() => {

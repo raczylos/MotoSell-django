@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {UserOffersComponent} from "../user-offers/user-offers.component";
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, Validators} from "@angular/forms";
 import {CarOffer} from "../car-offer";
 import {OffersService} from "../services/offers.service";
 import {switchMap} from "rxjs";
@@ -18,18 +18,19 @@ export class EditUserOfferComponent implements OnInit {
     // offer: CarOffer = this.userOffersComponent.offers
     constructor(private formBuilder: FormBuilder, private offersService: OffersService, private route: ActivatedRoute) { }
 
+        currentYear = new Date().getFullYear()
         carOfferForm = this.formBuilder.group({
-        title: [''],
-        description: [''],
-        car_category: [''],
-        brand: [''],
-        model: [''],
-        manufacture_year: [''],
-        mileage: [''],
-        cubic_capacity: [''],
-        power: [''],
-        fuel_category: [''],
-        image: [''],
+        title: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(80)]],
+        description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(400)]],
+        car_category: ['', [Validators.required]],
+        brand: ['', [Validators.required, Validators.maxLength(15)]],
+        model: ['', [Validators.required, Validators.maxLength(30)]],
+        manufacture_year: ['', [Validators.required, Validators.min(1800), Validators.max(this.currentYear)]],
+        mileage: ['', [Validators.required]],
+        cubic_capacity: ['', [Validators.required]],
+        power: ['', [Validators.required]],
+        fuel_category: ['', [Validators.required]],
+        image: ['', [Validators.required]],
         isPublished: [''],
         isDeleted: [''],
         // pub_date = Date
@@ -37,6 +38,7 @@ export class EditUserOfferComponent implements OnInit {
 
     imageSrc: string = ''
     userId: string = ''
+    offerId: string = ''
     username: string = ''
     formData = new FormData()
 
@@ -60,6 +62,9 @@ export class EditUserOfferComponent implements OnInit {
 
     onSubmit(): void {
 
+        let userIdJSON = JSON.parse(localStorage.getItem("userId")!)
+        this.userId = userIdJSON.user_id
+
 
         this.formData.append('title', this.carOfferForm.value.title!)
         this.formData.append('car_category', this.carOfferForm.value.car_category!)
@@ -74,7 +79,7 @@ export class EditUserOfferComponent implements OnInit {
         this.formData.append("author", this.userId!)
         this.formData.append("isDeleted", this.carOfferForm.value.isDeleted!)
         this.formData.append("isPublished", this.carOfferForm.value.isPublished!)
-        this.offersService.editOffer(this.formData,parseInt(this.userId)).subscribe((res) => {
+        this.offersService.editOffer(this.formData,parseInt(this.offerId)).subscribe((res) => {
             console.log(res);
         });
 
@@ -88,9 +93,8 @@ export class EditUserOfferComponent implements OnInit {
             switchMap((params) => {
                 const username = params['username']
                 const id = params['id']
-                this.userId = id
+                this.offerId = id
                 this.username = username
-                // this.offersService.getOfferItem(id)
                 return this.offersService.getOfferItem(id)
             })
         ).subscribe((res) => {

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {Form, FormBuilder} from '@angular/forms';
+import {Form, FormBuilder, Validators} from '@angular/forms';
 import { OffersService } from '../services/offers.service';
 import { Login } from '../login';
 import { CarOffer } from '../car-offer';
 import { User } from '../user';
 import { UserService } from '../services/user.service';
 import { delay } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-create-offer',
@@ -15,22 +16,19 @@ import { delay } from 'rxjs';
 export class CreateOfferComponent implements OnInit {
 
 
-
+    currentYear = new Date().getFullYear()
     carOfferForm = this.formBuilder.group({
-        title: [''],
-        description: [''],
-        car_category: [''],
-        brand: [''],
-        model: [''],
-        manufacture_year: [''],
-        mileage: [''],
-        cubic_capacity: [''],
-        power: [''],
-        fuel_category: [''],
-        image: [''],
-        isPublished: Boolean,
-        isDeleted: Boolean,
-        // pub_date = Date
+        title: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(80)]],
+        description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(400)]],
+        car_category: ['', [Validators.required]],
+        brand: ['', [Validators.required, Validators.maxLength(15)]],
+        model: ['', [Validators.required, Validators.maxLength(30)]],
+        manufacture_year: ['', [Validators.required, Validators.min(1800), Validators.max(this.currentYear)]],
+        mileage: ['', [Validators.required]],
+        cubic_capacity: ['', [Validators.required]],
+        power: ['', [Validators.required]],
+        fuel_category: ['', [Validators.required]],
+        image: ['', [Validators.required]],
     });
     formData = new FormData()
     imageSrc: string = '';
@@ -55,7 +53,7 @@ export class CreateOfferComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private offersService: OffersService,
-        private userService: UserService
+        private router: Router
     ) {}
 
     ngOnInit(): void {}
@@ -82,17 +80,23 @@ export class CreateOfferComponent implements OnInit {
         this.formData.append("author", userId!)
         this.formData.append("isPublished", "false")
         this.formData.append("isDeleted", "false")
-        this.formData.append("pub_date", "null")
 
 
         console.log(this.formData.get("title"))
         console.log(this.formData.get("image"))
 
         let carOffer: FormData = this.formData
-
-        this.offersService.addOffer(carOffer).subscribe((res) => {
+        if(this.carOfferForm.valid){
+            console.log("valid create form")
+            this.offersService.addOffer(carOffer).subscribe((res) => {
             console.log(res);
-        });
+            this.router.navigate(['/'])
+            });
+        }
+        else {
+            console.log("invalid create form")
+        }
+
     }
 
 }

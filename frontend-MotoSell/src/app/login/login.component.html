@@ -1,14 +1,14 @@
 <div mat-dialog-content class="login-user">
     <h1>Logowanie</h1>
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" (keyup)="handleKeyUp($event)">
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Nazwa użytkownika</mat-label>
                 <input matInput formControlName="username" required />
             </mat-form-field>
         </div>
-        <div>
-            <mat-form-field appearance="fill">
+        <div >
+            <mat-form-field  appearance="fill">
                 <mat-label>Hasło</mat-label>
                 <input
                     matInput
@@ -19,9 +19,14 @@
             </mat-form-field>
         </div>
 
+        <div *ngIf="!accountExist" class="alert-danger">Nazwa użytkownika lub hasło są niepoprawne!</div>
+
         <div mat-dialog-actions>
-            <button mat-button (click)="onNoClick()">Wstecz</button>
-            <button mat-button (click)="onSubmit()" cdkFocusInitial>Zatwierdź</button>
+            <a mat-button (click)="onNoClick()">Wstecz</a>
+            <button mat-button color="primary"  cdkFocusInitial>Zatwierdź</button>
         </div>
     </form>
+
 </div>
+
+

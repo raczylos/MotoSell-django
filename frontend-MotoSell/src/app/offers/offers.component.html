@@ -7,6 +7,7 @@
                 class="offer-card"
             >
                 <mat-card-title> {{ offer.title }}</mat-card-title>
+
                 <img
                     class="image"
                     mat-card-image
@@ -14,16 +15,35 @@
                     alt="image"
                 />
                 <mat-card-content>
-                    <p>
-                        Rok produkcji: {{ offer.manufacture_year }} Przebieg:
-                        {{ offer.mileage }} Rodzaj paliwa:
-                        {{ offer.fuel_category }} Moc: {{ offer.power }}
-                    </p>
+                    Rok produkcji:
+                    <span>
+                        {{ offer.manufacture_year }}
+                    </span>
+                    Przebieg:
+                    <span>
+                        {{ offer.mileage }}
+                    </span>
+                    <br>
+                    Rodzaj paliwa:
+                    <span>
+                         {{ offer.fuel_category }}
+                    </span>
+                    Moc:
+                    <span>
+                        {{ offer.power }}
+                    </span>
+                    <br>
+                    Data publikacji:
+                    <span>
+                         {{offer.pub_date}}
+                    </span>
                 </mat-card-content>
-                <!--            <mat-card-actions>-->
-                <!--                <button mat-button>Szczegóły</button>-->
-                <!--            </mat-card-actions>-->
+                <div class="navigation-buttons">
+                    <button mat-raised-button color="primary" mat-button [routerLink]="['offers/', offer.id]">Szczegóły</button>
+                </div>
+
             </mat-card>
+
         </div>
     </div>
 </div>

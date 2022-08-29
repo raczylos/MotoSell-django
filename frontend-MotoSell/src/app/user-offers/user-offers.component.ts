@@ -33,6 +33,7 @@ export class UserOffersComponent implements OnInit {
             this.offers = [] //clear table to use fuction in openDialog (prevent duplicate)
             this.offers.push(...res.results)
             console.log(this.offers);
+
         });
     }
 

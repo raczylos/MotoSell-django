@@ -8,6 +8,12 @@
 
 }
 
+.navigation-buttons {
+    margin-top: 30px;
+    padding-bottom: 10px;
+    float: right;
+}
+
 
 .offer-card {
     margin: auto;
@@ -19,7 +25,10 @@
 
 }
 
-
+span {
+    padding: 5px;
+    font-size: 1.200em;
+}
 
 
 /*.image {*/
