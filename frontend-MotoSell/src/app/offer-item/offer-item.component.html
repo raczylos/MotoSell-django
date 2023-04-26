@@ -1,0 +1,59 @@
+<div class="content">
+    <mat-card class="offer-card" >
+        <mat-card-title> {{ offer.title }}</mat-card-title>
+        <img
+            class="image"
+            mat-card-image
+            src="{{ offer.image }}"
+            alt="image"
+        />
+        <mat-card-content>
+            Rok produkcji:
+            <span>
+                {{ offer.manufacture_year }}
+            </span>
+            Przebieg:
+            <span>
+                {{ offer.mileage }}
+            </span>
+            Rodzaj paliwa:
+            <span>
+                {{ offer.fuel_category }}
+            </span>
+            Moc:
+            <span>
+                {{ offer.power }}
+            </span>
+            Typ pojazdu:
+            <span>
+                {{offer.car_category}}
+            </span>
+            Pojemność skokowa:
+            <span>
+                {{offer.cubic_capacity}}
+            </span>
+            Marka:
+            <span>
+                {{offer.brand}}
+            </span>
+            Model:
+            <span>
+                {{offer.model}}
+            </span>
+            <br>
+            Opis:
+            <span>
+                 {{offer.description }}
+            </span>
+            <br>
+            Data publikacji:
+            <span>
+                 {{offer.pub_date}}
+            </span>
+        </mat-card-content>
+        <div class="navigation-buttons">
+            <button mat-raised-button color="primary" routerLink="/" >Wstecz</button>
+        </div>
+    </mat-card>
+
+</div>

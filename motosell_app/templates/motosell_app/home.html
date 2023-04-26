@@ -1,0 +1,21 @@
+{% extends 'motosell_app/base.html' %}
+
+{% block content %}
+
+    <h1>home page</h1>
+    {% if user.is_authenticated %}
+    <p>
+
+        logged in user: {{ user.get_username }}
+
+
+    </p>
+    <p>
+        My offers:
+        {% for offer in offer_list %}
+            <li>{{ offer }}</li>
+        {% endfor %}
+    </p>
+    {% endif %}
+
+{% endblock %}

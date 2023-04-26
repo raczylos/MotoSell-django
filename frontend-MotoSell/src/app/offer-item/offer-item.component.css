@@ -1,0 +1,39 @@
+.content {
+    padding: 16px;
+    margin: 10px 50px 10px 50px;
+
+    -ms-word-break: break-all;
+     word-break: break-all;
+
+
+}
+
+.navigation-buttons {
+    margin-top: 30px;
+    padding-bottom: 10px;
+    float: right;
+}
+
+
+.offer-card {
+    margin: auto;
+    max-width: 70%;
+    max-height: 70%;
+
+
+    border: 1px solid #ded9d9;
+
+}
+
+span {
+    padding: 5px;
+    font-size: 1.200em;
+}
+
+
+/*.image {*/
+
+/*    margin: auto;*/
+/*    display: block;*/
+/*    width: 90%;*/
+/*}*/

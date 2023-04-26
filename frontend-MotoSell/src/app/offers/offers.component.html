@@ -1,0 +1,51 @@
+<div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="20px grid">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let offer of offers">
+            <mat-card
+                [style.cursor]="'pointer'"
+                [routerLink]="['offers/', offer.id]"
+                class="offer-card"
+            >
+                <mat-card-title> {{ offer.title }}</mat-card-title>
+
+                <img
+                    class="image"
+                    mat-card-image
+                    src="{{ offer.image }}"
+                    alt="image"
+                />
+                <mat-card-content>
+                    Rok produkcji:
+                    <span>
+                        {{ offer.manufacture_year }}
+                    </span>
+                    Przebieg:
+                    <span>
+                        {{ offer.mileage }}
+                    </span>
+                    <br>
+                    Rodzaj paliwa:
+                    <span>
+                         {{ offer.fuel_category }}
+                    </span>
+                    Moc:
+                    <span>
+                        {{ offer.power }}
+                    </span>
+                    <br>
+                    Data publikacji:
+                    <span>
+                         {{offer.pub_date}}
+                    </span>
+                </mat-card-content>
+                <div class="navigation-buttons">
+                    <button mat-raised-button color="primary" mat-button [routerLink]="['offers/', offer.id]">Szczegóły</button>
+                </div>
+
+            </mat-card>
+
+        </div>
+    </div>
+</div>
+
+

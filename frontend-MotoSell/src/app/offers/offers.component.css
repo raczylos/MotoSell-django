@@ -1,0 +1,40 @@
+.content {
+    padding: 20px;
+    margin: 10px 50px 10px 50px;
+
+
+}
+
+
+
+.offer-card {
+    max-width: 600px;
+    max-height: 600px;
+
+
+    border: 1px solid #ded9d9;
+
+
+
+
+}
+
+.image {
+
+    height: 300px;
+
+}
+
+
+mat-card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+span {
+    padding: 5px;
+    font-size: 1.200em;
+}
+

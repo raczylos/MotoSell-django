@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="1dd5f8e8-83bf-4175-8f0c-d751c2f42e98" name="MotoSell debian">
+        <fileTransfer accessType="SFTP" host="192.168.43.244" port="22" sshConfigId="d8bf7207-9b3c-44ca-ace6-7aedc1866bad" sshConfig="sebastian@192.168.43.244:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="60000" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="458594f4-4518-4865-8f81-49af6f94ed1f" name="debian s">
+        <fileTransfer accessType="SFTP" host="192.168.8.141" port="22" sshConfigId="afc40738-75bf-402e-9b24-d5c3ee562ef9" sshConfig="sebastian@192.168.8.141:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
