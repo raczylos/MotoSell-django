@@ -32,6 +32,14 @@
             </div>
 
             <div>
+                <mat-form-field class="price" appearance="fill">
+                    <mat-label>Cena</mat-label>
+                    <input type="number" min="1" matInput formControlName="price" required/>
+                    <mat-error *ngIf="carOfferForm.controls['price'].errors?.['required']">Cena nie może być pusta!</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div>
                 <input style="display: none" id="file" name="file" type="file" (change)="onFileSelected($event)" #hiddenfileinput />
 
                 <a mat-raised-button color="primary" (click)="hiddenfileinput.click()"  class="file-upload" >

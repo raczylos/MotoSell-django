@@ -33,6 +33,9 @@ class CarOffer(models.Model):
         (DIESEL, 'diesel'),
         (LPG, 'lpg'),
     ]
+
+    price = models.PositiveIntegerField(null=True, blank=True)
+
     fuel_category = models.CharField(choices=fuel_categories, max_length=15)
 
     # user

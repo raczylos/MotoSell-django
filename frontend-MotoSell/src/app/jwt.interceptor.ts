@@ -34,9 +34,14 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        if(this.router.url !== "/" || request.url.match("http://192.168.43.244:9000/accounts/login/")){
+        // if(this.router.url !== "/" || request.url.match("http://192.168.43.244:9000/accounts/login/")){
+        //     request = this.addAuthenticationToken(request)
+        // }
+
+        if(this.router.url !== "/" || request.url.match("http://127.0.0.1:8000/accounts/login/")){
             request = this.addAuthenticationToken(request)
         }
+
 
 
         return next.handle(request).pipe(

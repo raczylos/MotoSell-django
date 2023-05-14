@@ -30,6 +30,7 @@ export class EditUserOfferComponent implements OnInit {
         cubic_capacity: ['', [Validators.required]],
         power: ['', [Validators.required]],
         fuel_category: ['', [Validators.required]],
+        price: ['', [Validators.required]],
         image: ['', [Validators.required]],
         isPublished: [''],
         isDeleted: [''],
@@ -74,6 +75,7 @@ export class EditUserOfferComponent implements OnInit {
         this.formData.append('cubic_capacity', this.carOfferForm.value.cubic_capacity!)
         this.formData.append('description', this.carOfferForm.value.description!)
         this.formData.append('fuel_category', this.carOfferForm.value.fuel_category!)
+        this.formData.append('price', this.carOfferForm.value.price!)
         this.formData.append('manufacture_year', this.carOfferForm.value.manufacture_year!)
         this.formData.append('power', this.carOfferForm.value.power!)
         this.formData.append("author", this.userId!)
@@ -108,6 +110,7 @@ export class EditUserOfferComponent implements OnInit {
             this.carOfferForm.get("cubic_capacity")!.setValue(res.cubic_capacity)
             this.carOfferForm.get("description")!.setValue(res.description)
             this.carOfferForm.get("fuel_category")!.setValue(res.fuel_category)
+            this.carOfferForm.get("price")!.setValue(res.price)
             this.carOfferForm.get("manufacture_year")!.setValue(res.manufacture_year)
             this.carOfferForm.get("power")!.setValue(res.power)
 

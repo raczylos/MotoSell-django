@@ -28,6 +28,7 @@ export class CreateOfferComponent implements OnInit {
         cubic_capacity: ['', [Validators.required]],
         power: ['', [Validators.required]],
         fuel_category: ['', [Validators.required]],
+        price: ['', [Validators.required]],
         image: ['', [Validators.required]],
     });
     formData = new FormData()
@@ -60,9 +61,9 @@ export class CreateOfferComponent implements OnInit {
 
     onSubmit(): void {
         let userIdJSON = JSON.parse(localStorage.getItem('userId')!);
-        console.log(userIdJSON);
+        console.log("user", userIdJSON);
         let userId = userIdJSON.user_id;
-        console.log(userId);
+        console.log("userId:", userId);
         const dateNow = new Date();
 
         console.log(this.carOfferForm.value.image)
@@ -77,6 +78,7 @@ export class CreateOfferComponent implements OnInit {
         this.formData.append("cubic_capacity", this.carOfferForm.value.cubic_capacity!)
         this.formData.append("power", this.carOfferForm.value.power!)
         this.formData.append("fuel_category", this.carOfferForm.value.fuel_category!)
+        this.formData.append("price", this.carOfferForm.value.price!)
         this.formData.append("author", userId!)
         this.formData.append("isPublished", "false")
         this.formData.append("isDeleted", "false")

@@ -16,7 +16,9 @@ const httpOptions = {
     providedIn: 'root',
 })
 export class UserService {
-    private base_url = 'http://192.168.43.244:9000/';
+    // private base_url = 'http://192.168.43.244:9000/';
+    private base_url = 'http://127.0.0.1:8000/';
+
 
     // public isLoggedIn: boolean = JSON.parse(
     //     localStorage.getItem('authTokens')!
@@ -27,7 +29,6 @@ export class UserService {
 
     constructor(private http: HttpClient, private router: Router) {
         console.log('user service constructor');
-        // this.IntervalFunction();
 
     }
 
@@ -41,33 +42,6 @@ export class UserService {
         }
 
     }
-
-
-
-    // public IntervalFunction() {
-    //     const interval = setInterval(() => {
-    //         const tokens: any = JSON.parse(localStorage.getItem('authTokens')!);
-    //         if (tokens == null) {
-    //             this.isLoggedIn = false;
-    //             console.log('no tokens');
-    //         } else if (this.tokenExpired(tokens['refresh'])) {
-    //             this.logOut(); // clear local storage
-    //             console.log('stop interval');
-    //             clearInterval(interval);
-    //         } else {
-    //             this.updateAuthToken().subscribe((res) => {
-    //                 console.log(res);
-    //                 localStorage.setItem('authTokens', JSON.stringify(res));
-    //                 this.isLoggedIn = true;
-    //             });
-    //         }
-    //     }, 500 * 1000);
-    // }
-
-    // private tokenExpired(token: string) {
-    //     const expiry = JSON.parse(atob(token.split('.')[1])).exp;
-    //     return Math.floor(new Date().getTime() / 1000) >= expiry;
-    // }
 
     getUsers(): Observable<User[]> {
         let url = 'accounts/users/';

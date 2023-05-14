@@ -75,6 +75,7 @@ export class UserOffersComponent implements OnInit {
             cubic_capacity: offer.cubic_capacity,
             description: offer.description,
             fuel_category: offer.fuel_category,
+            price: offer.price,
             manufacture_year: offer.manufacture_year,
             mileage: offer.mileage,
             model: offer.model,

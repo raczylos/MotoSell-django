@@ -20,6 +20,13 @@
                     <mat-error *ngIf="carOfferForm.controls['description'].errors?.['minlength']">Opis musi być dłuższy niż 10 znaków!</mat-error>
                 </mat-form-field>
             </div>
+            <div>
+                <mat-form-field class="price" appearance="fill">
+                    <mat-label>Cena</mat-label>
+                    <input type="number" min="1" matInput formControlName="price" required/>
+                    <mat-error *ngIf="carOfferForm.controls['price'].errors?.['required']">Cena nie może być pusta!</mat-error>
+                </mat-form-field>
+            </div>
 
             <div>
                 <input style="display: none" id="file" name="file" type="file" (change)="onFileSelected($event)" #hiddenfileinput />

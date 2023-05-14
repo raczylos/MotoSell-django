@@ -16,7 +16,8 @@ const httpOptions = {
 export class OffersService {
     constructor(private http: HttpClient) {}
 
-    private base_url = 'http://192.168.43.244:9000/';
+    // private base_url = 'http://192.168.43.244:9000/';
+    private base_url = 'http://127.0.0.1:8000/';
 
     getOffers(): Observable<CarOffer[]> {
         let url = 'offers/';
@@ -33,7 +34,7 @@ export class OffersService {
     }
 
     getImage(imageUrl: string): Observable<string> {
-        console.log("tutaj bardzo wazne " + imageUrl)
+
 
         // let url = 'media/files/images/' + imageUrl;
 

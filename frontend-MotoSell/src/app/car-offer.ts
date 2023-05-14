@@ -12,6 +12,7 @@ export interface CarOffer {
     cubic_capacity: string;
     power: string;
     fuel_category: string;
+    price: string;
     author: string;
     image?: File | null | string;
     pub_date: Date | null | string;
